@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.aaronrenner</groupId>
-	<artifactId>discord-game-bot</artifactId>
+	<artifactId>java-survival-games</artifactId>
 	<version>1.3.17</version>
-	<name> discord-game-bot </name>
+	<name> java-survival-games </name>
 	<description>A Discord bot made with javacord, featuring use of the OpenSea API!</description>
 	<properties>
 		<java.version>11</java.version>

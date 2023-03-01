@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: discord-game-bot:test
-    container_name: discord-game-bot-prod
+    image: java-survival-games:test
+    container_name: java-survival-games-prod
     restart: always
     stdin_open: true
     tty: true

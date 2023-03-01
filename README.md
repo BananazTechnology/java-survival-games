@@ -1,6 +1,6 @@
-[![SOFT](https://github.com/Aman7123/discord-game-bot/actions/workflows/SOFT.yml/badge.svg?branch=develop)](https://github.com/Aman7123/discord-game-bot/actions/workflows/SOFT.yml)[![RELEASE](https://github.com/Aman7123/discord-game-bot/actions/workflows/RELEASE.yml/badge.svg?branch=main)](https://github.com/Aman7123/discord-game-bot/actions/workflows/RELEASE.yml)
+[![SOFT](https://github.com/BananazTechnology/java-survival-games/actions/workflows/SOFT.yml/badge.svg?branch=develop)](https://github.com/BananazTechnology/java-survival-games/actions/workflows/SOFT.yml)[![RELEASE](https://github.com/BananazTechnology/java-survival-games/actions/workflows/RELEASE.yml/badge.svg?branch=main)](https://github.com/BananazTechnology/java-survival-games/actions/workflows/RELEASE.yml)
 
-# Discord Game Bot
+# Java Survival Game
 * Description: A Discord bot made with @Javacord!
 * Version: (Check main for release or develop for dev)
 * Creator: Aaron Renner
