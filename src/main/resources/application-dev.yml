@@ -1,0 +1,66 @@
+debug: true
+---
+app:
+  version: @project.version@
+---
+server:
+  port: 8081
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      use_sql_comments: true
+      format_sql: true
+      ddl-auto: update
+      naming:
+        physical-strategy: com.aaronrenner.discordbot.models.TableNameStrategy
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://aaronrenner.com:8306/gamebot?createDatabaseIfNotExist=true
+    username: USERNAME
+    password: PASSWORD
+    hikari:
+      connectionTimeout: 120000
+      idleTimeout: 600000
+      maxLifetime: 10000
+      maximumPoolSize: 2
+  banner:
+    # Custom Banner
+    location: classpath:banner.txt
+---
+# Health check actuator
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"
+---
+# Custom settings
+nft-bot:
+  customName: t0_test
+  discord:
+    adminChannel: "admins"
+    commandPrefix: "!"
+    gameChannel: "948814965102481468"
+    gameCommand: "survive"
+    generalChannel: "948751370842943548"
+    generalOutput: true
+    token: ODg1MzE2NjE1MjEyNzY5Mjgx.YTlRWQ.Wz4efIUN3RX-_D1RlczaDJDIJQk
+    winnerRole: "885357681773277204"
+  game:
+    gameCommand: "survive"
+    adminContact: "<@!885316615212769281>"
+    loserMessages:
+    - "Not takn' the bacon home today %s!"
+    - "%s You searched the chest.........Nothing!"
+    - "%s Just like the Steelers, you wont ever see another Super Bowl!"
+    - "THE NEWS COMES OUT: %s has a stroke in his sleep!"
+    dropScale: 1
+    maxWinners: 6
+    userCooldown: 3600
+    winnerMessages:
+    - ":zap: Congrats %s :zap:, head on over to <#930256345414905967> and use !winner <public wallet address>"
+    dispatchInterval: 1000

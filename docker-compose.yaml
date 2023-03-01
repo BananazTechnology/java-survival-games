@@ -1,0 +1,78 @@
+version: "3.8"
+services:
+  discordGameBot:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: discord-game-bot:test
+    container_name: discord-game-bot-prod
+    restart: always
+    stdin_open: true
+    tty: true
+    environment:
+      SPRING_APPLICATION_JSON: |-
+        {
+          "spring": {
+            "jpa": {
+              "hibernate": {
+                "ddl-auto": "update",
+                "naming": {
+                  "physical-strategy": "com.aaronrenner.discordbot.models.TableNameStrategy"
+                }
+              }
+            },
+            "datasource": {
+              "driver-class-name": "com.mysql.cj.jdbc.Driver",
+              "url": "jdbc:mysql://aaronrenner.com:8306/gamebot?createDatabaseIfNotExist=true",
+              "username": "ARenner",
+              "password": "Aaron100%",
+              "hikari": {
+                "connectionTimeout": 120000,
+                "idleTimeout": 600000,
+                "maxLifetime": 1800000,
+                "maximumPoolSize": 25
+              }
+            }
+          },
+          "nft-bot": {
+            "customName": "bananaz",
+            "discord": {
+              "adminChannel": "admins",
+              "commandPrefix": "!",
+              "gameChannel": "general",
+              "gameCommand": "survive",
+              "token": "ODg1MzE2NjE1MjEyNzY5Mjgx.YTlRWQ.Wz4efIUN3RX-_D1RlczaDJDIJQk",
+              "winnerRole": "885357681773277204"
+            },
+            "game": {
+              "gameCommand": "watch",
+              "adminContact": "<@!175400630804807680>",
+              "loserMessages": [
+                "%s Backpack Cat pushes a large air vent over the side of the building. Ow.",
+                "%s The Super Geisha stumbles backwards after a nasty Kaiju left hook. You get knocked into a garbage bin. That'll take a while to clean out.",
+                "%s The Kaiju falls down inches away from you. You're alive! But very scared. You run away.",
+                "%s The Kaiju notices you and makes fun of your shoes. You like those shoes :(",
+                "%s The Kaiju swings its mighty tail at the Super Geisha and flings you into the horizon in the process! Wow, look at you go!",
+                "%s The Super Geisha throws the Kaiju into the side of a building! Unfortunately, it was your apartment.",
+                "%s The Kaiju lets out a mighty growl that shakes all of downtown. It shakes so much you're thrown off your feet and get knocked out. When you wake up, the battle is over. You missed all the cool stuff.",
+                "%s The Super Geisha defeats the Kaiju handily, almost right away. You had bet on a third round knockout though, and now you're out of cash.",
+                "%s The news helicopter is grabbed by the Kaiju and thrown into the distance! The Super Geisha runs after it so nobody gets hurt. The Kaiju watches them run after it, then looks at you. Oh no.",
+                "%s The Researcher emerges from their hiding spot to watch the fight, scribbling notes quickly onto a pad of paper. They ask you to grab them another pen, this one is out of ink. You do so, but miss the RKO performed on the Kaiju by a Super Geisha. The Researcher is doodling what it looked like for you, but it's not very good."
+              ],
+              "dropScale": 35,
+              "maxWinners": 10,
+              "userCooldown": 21600,
+              "winnerMessages": [
+                "%s The Kaiju notices you and charges toward you at a speed a Kaiju should not be allowed to run at. Luckily the Super Geisha pushes it over just as it reaches out its scaly hand. For your bravery, the Geisha gifts you something!\n⚡️ Winner ⚡️\nPlease go to <#942923838876958750> and type !wallet <address>!",
+                "%s The Kaiju jumps high into the air and crashes down right by you, knocking tops off buildings! It lands but is thrown off balance. The Super Geisha is able to bring it to the ground easily, almost crushing you! The Super Geisha feels bad for scaring you and gifts you something!\n⚡️ Winner ⚡️\nPlease go to <#942923838876958750> and type !wallet <address>!",
+                "%s You throw a shoe at the Kaiju and it looks down at you. Is that fear you smell? No! It's the Kaiju about to burn you to a crisp! Before that happens the Super Geisha smacks the Kaiju on the head with a billboard. For creating a distraction, you are gifted something!\n⚡️ Winner ⚡️\nPlease go to <#942923838876958750> and type !wallet <address>!"
+              ],
+              "dispatchInterval": 1000
+            }
+          }
+        }
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c \"if [[ $$(tail -n 10 /tmp/nftBotRuntime.log | grep -cE '(Websocket)') -gt 5 ]]; then echo 1; else echo 0; fi\""]
+      interval: 60s
+      timeout: 30s
+      retries: 2

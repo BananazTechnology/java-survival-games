@@ -1,0 +1,11 @@
+###########################################
+ .oOOOo.                        o.oOOOo.              
+.O     o                         o     o              
+o                                O     O          O   
+O                                oOooOO.         oOo  
+O   .oOOo .oOoO' `oOOoOO. .oOo.  o     `O .oOo.   o   
+o.      O O   o   O  o  o OooO'  O      o O   o   O   
+ O.    oO o   O   o  O  O O      o     .O o   O   o   
+  `OooO'  `OoO'o  O  o  o `OoO'  `OooOO'  `OoO'   `oO                                       
+- A javacord game-based Discord bot!
+###########################################
