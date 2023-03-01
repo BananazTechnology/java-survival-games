@@ -17,7 +17,7 @@ services:
               "hibernate": {
                 "ddl-auto": "update",
                 "naming": {
-                  "physical-strategy": "com.aaronrenner.discordbot.models.TableNameStrategy"
+                  "physical-strategy": "tech.bananaz.discordbot.models.TableNameStrategy"
                 }
               }
             },

@@ -8,14 +8,14 @@
 		<version>2.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.aaronrenner</groupId>
+	<groupId>tech.bananaz</groupId>
 	<artifactId>java-survival-games</artifactId>
 	<version>1.3.17</version>
 	<name> java-survival-games </name>
 	<description>A Discord bot made with javacord, featuring use of the OpenSea API!</description>
 	<properties>
 		<java.version>11</java.version>
-		<sonar.projectKey>game-bot</sonar.projectKey>
+		<sonar.projectKey>java-survival-games</sonar.projectKey>
 	</properties>
 	<dependencies>
 		<dependency>

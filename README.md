@@ -32,7 +32,7 @@ spring:
     hibernate:
       ddl-auto: update
       naming:
-        physical-strategy: com.aaronrenner.discordbot.models.TableNameStrategy
+        physical-strategy: tech.bananaz.discordbot.models.TableNameStrategy
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://aaronrenner.com:8306/gamebot?createDatabaseIfNotExist=true

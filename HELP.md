@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'com.aaronrenner.discord-nft-bot' is invalid and this project uses 'com.aaronrenner.discordnftbot' instead.
+* The original package name 'tech.bananaz.discord-nft-bot' is invalid and this project uses 'tech.bananaz.discordnftbot' instead.
 
 # Getting Started
 
