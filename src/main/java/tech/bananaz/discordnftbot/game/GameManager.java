@@ -121,6 +121,32 @@ public class GameManager {
 		return fin;
 	}
 	
+	public void autoWin(EventMessage e) {
+		// Roll for natural ID increment REQUIRED
+		@SuppressWarnings("unused")
+		boolean result = this.sg.roll();
+		long id 	   = this.sg.getEntries();
+		long discordId = e.getUser().getId();
+		Optional<Entry> last = this.entryRepo.findFirstByDiscordIdOrderByCreatedDesc(discordId);
+		boolean hasWon = false;
+		if(last.isPresent()) {
+			Entry usrPrevious = last.get();
+			hasWon = usrPrevious.isWinner();
+		}
+		if(!hasWon) {
+			// Build entry and set winning status
+			Entry reciept  = new Entry(id, discordId, e.getUser().getDiscriminatedName());
+			reciept.setWinner(true);
+			// Log in DB
+			saveEntry(reciept);
+			// Log to discord
+			this.bot.assignWinnerRole(e.getUser());
+			this.bot.sendAdminNotification(reciept);
+		} else {
+			this.bot.sendAdminMessage(String.format("User %s(%s) was already recorded!", e.getUser().getMentionTag(), e.getUser().getDiscriminatedName()));
+		}
+	}
+	
 	public boolean isPaused() {
 		return this.sg.isPaused();
 	}

@@ -16,7 +16,7 @@ spring:
         physical-strategy: tech.bananaz.discordbot.models.TableNameStrategy
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://aaronrenner.com:8306/gamebot?createDatabaseIfNotExist=true
+    url: jdbc:mysql://aar.dev:3306/gamebot?createDatabaseIfNotExist=true
     username: USERNAME
     password: PASSWORD
     hikari:
@@ -40,13 +40,13 @@ management:
 ---
 # Custom settings
 nft-bot:
-  customName: t0_test
+  customName: tv1_test
   discord:
-    adminChannel: "admins"
+    adminChannel: "1081433646520619108"
     commandPrefix: "!"
-    gameChannel: "948814965102481468"
+    gameChannel: "1081431849798217848"
     gameCommand: "survive"
-    generalChannel: "948751370842943548"
+    generalChannel: "991142266813026378"
     generalOutput: true
     token: ODg1MzE2NjE1MjEyNzY5Mjgx.YTlRWQ.Wz4efIUN3RX-_D1RlczaDJDIJQk
     winnerRole: "885357681773277204"
