@@ -77,17 +77,9 @@ jobs:
             ghcr.io/${{ github.repository }}
       - name: Build Dockerfile and Push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}:${{ steps.project.outputs.version }}
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ steps.project.outputs.version }}
-          labels: |
-            tech.bananaz.app.version=${{ steps.project.outputs.version }}
-            tech.bananaz.core.version=${{ steps.btCore.outputs.version }}
-            tech.bananaz.maintainer=contact@bananaz.tech
-            tech.bananaz.repo=https://github.com/${{ github.repository }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
