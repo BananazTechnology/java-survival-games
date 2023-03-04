@@ -68,9 +68,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           tags: |
-            tech.bananaz.app.version=${{ steps.project.outputs.version }}
-            tech.bananaz.core.version=${{ steps.btCore.outputs.version }}
-            tech.bananaz.maintainer=contact@bananaz.tech
+            type=raw,value='tech.bananaz.app.version=${{ steps.project.outputs.version }}'
+            type=raw,value='tech.bananaz.maintainer=contact@bananaz.tech'
             type=semver,pattern={{version}},value=${{ steps.project.outputs.version }}
           images: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}
