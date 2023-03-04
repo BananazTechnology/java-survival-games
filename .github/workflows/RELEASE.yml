@@ -67,9 +67,10 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
+          labels: |
+            tech.bananaz.app.version=${{ steps.project.outputs.version }}
+            tech.bananaz.maintainer=contact@bananaz.tech
           tags: |
-            type=raw,value='tech.bananaz.app.version=${{ steps.project.outputs.version }}'
-            type=raw,value='tech.bananaz.maintainer=contact@bananaz.tech'
             type=semver,pattern={{version}},value=${{ steps.project.outputs.version }}
           images: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}
