@@ -68,12 +68,13 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           tags: |
+            tech.bananaz.app.version=${{ steps.project.outputs.version }}
+            tech.bananaz.core.version=${{ steps.btCore.outputs.version }}
+            tech.bananaz.maintainer=contact@bananaz.tech
             type=semver,pattern={{version}},value=${{ steps.project.outputs.version }}
           images: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}:${{ steps.project.outputs.version }}
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ steps.project.outputs.version }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}
+            ghcr.io/${{ github.repository }}
       - name: Build Dockerfile and Push
         id: docker_build
         uses: docker/build-push-action@v2
