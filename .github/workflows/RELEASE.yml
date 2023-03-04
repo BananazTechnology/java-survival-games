@@ -67,6 +67,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
+          tags: |
+            type=semver,pattern={{version}},value=${{ steps.project.outputs.version }}
           images: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}:${{ steps.project.outputs.version }}
