@@ -140,6 +140,13 @@ public class DiscordBot {
 		msg.send(this.adminOut);
 	}
 	
+	public void sendAdminMessage(String text) {
+		MessageBuilder msg = new MessageBuilder();
+		String data = String.format("%s", text);
+		msg.append(data);
+		msg.send(this.adminOut);
+	}
+	
 	public void sendGeneralNotification(EventMessage e) {
 		if(this.config.isGeneralOutput()) {
 			MessageBuilder msg = new MessageBuilder();
@@ -165,6 +172,7 @@ public class DiscordBot {
 						this.config.getCommandPrefix() + "currentGame - shows info about the game" + NEWLINE + 
 						this.config.getCommandPrefix() + "resumeGame - configures the \"paused\" value to false" + NEWLINE +
 						this.config.getCommandPrefix() + "pauseGame - configures \"paused\" to be true" + NEWLINE +
+						this.config.getCommandPrefix() + "gameAdd <userTag> - use the @ tag to manually add user" + NEWLINE +
 						this.config.getCommandPrefix() + "listWinners - can output winners in batch to the Discord channel" + NEWLINE +
 						this.config.getCommandPrefix() + "exportWinners - exports a CSV, displays the URL" + NEWLINE +
 						this.config.getCommandPrefix() + "exportEntries - exports a CSV, displays the URL" + NEWLINE +

@@ -1,9 +1,9 @@
 package tech.bananaz.discordnftbot.discord;
 
 import java.util.Optional;
+import java.util.regex.Matcher;
 import org.javacord.api.entity.channel.ServerTextChannel;
 import org.javacord.api.entity.message.Message;
-import org.javacord.api.entity.permission.PermissionType;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
@@ -17,6 +17,8 @@ import tech.bananaz.discordnftbot.game.GameManager;
 import tech.bananaz.discordnftbot.game.SurvivalGame;
 import tech.bananaz.discordnftbot.models.DiscordProperties;
 import tech.bananaz.discordnftbot.models.EventMessage;
+import static tech.bananaz.discordnftbot.utils.CommandUtils.*;
+import static org.javacord.api.util.DiscordRegexPattern.*;
 
 @Component
 public class Commands implements MessageCreateListener {
@@ -30,8 +32,6 @@ public class Commands implements MessageCreateListener {
 	// Custom
 	private static final Logger LOGGER  = LoggerFactory.getLogger(Commands.class);
 	private DiscordProperties config;
-	private static final PermissionType managePerms = PermissionType.MANAGE_MESSAGES;
-	private static final PermissionType adminPerms = PermissionType.ADMINISTRATOR;
 	private static final String CHECK = "👍🏼";
 	private static final String WRONG = "👎🏼";
 	
@@ -165,6 +165,27 @@ public class Commands implements MessageCreateListener {
 				}
 			}	
 			
+			// gameAdd
+			if(parsedMsg.contains(prefix+"gameAdd")) {
+				if(userHasAdminPerms(sender, server)) {
+					try {
+						String[] splitMsg  = parsedMsg.split(" ");
+						String mentionTag = splitMsg[1];
+						Matcher validationCheck = USER_MENTION.matcher(mentionTag);
+						if(validationCheck.matches()) {
+							String discordId = validationCheck.group(1);
+							User newWinner = this.bot.getDiscord().getUserById(discordId).get();
+							e.setUser(newWinner);
+							this.bot.gameManager.autoWin(e);
+							LOGGER.info("User {} added a manual entry!", sender.get().getDiscriminatedName());
+							event.addReactionsToMessage(CHECK);
+						}
+					} catch (Exception e2) {
+						event.addReactionsToMessage(WRONG);
+					}
+				}
+			}	
+			
 			// See if event occurs in game channel
 			String channelValueFromConfig = config.getGameChannel();
 			boolean thisChannelMatchesConfigChannel = message.getServerTextChannel().get().getName().equalsIgnoreCase(channelValueFromConfig);
@@ -191,47 +212,4 @@ public class Commands implements MessageCreateListener {
 	        }
 		}
 	}
-	
-	private boolean userHasAdminPerms(Optional<User> user, Optional<Server> server) {
-		boolean response = false;
-		if(!user.isEmpty() && !server.isEmpty()) {
-			User userObj = user.get();
-			Server serverObj = server.get();
-			if(serverObj.getPermissions(userObj).getAllowedPermission().contains(managePerms) ||
-					serverObj.getPermissions(userObj).getAllowedPermission().contains(adminPerms) ||
-					userObj.getIdAsString().equals("176355202687959051")  || /* Aaron's validation */
-					userObj.getIdAsString().equals("551865831517061120") /* Tim's validation */) {
-				response = true;
-			}
-		}
-		return response;
-	}
-	
-	private boolean userHasWinnerRole(Optional<User> user, Optional<Server> server, Role role) {
-		boolean response = false;
-		if(!user.isEmpty() && !server.isEmpty()) {
-			User userObj = user.get();
-			Server serverObj = server.get();
-			if(serverObj.getRoles(userObj).contains(role) || 
-					userObj.getIdAsString().equals("176355202687959051") || /* Aaron's validation */
-					userObj.getIdAsString().equals("551865831517061120") /* Tim's validation */) {
-				response = true;
-			}
-		}
-		return response;
-	}
-	
-	private static String convertObjectArrayToString(Object[] arr) {
-		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < (arr.length); i++) {
-			String toStr = arr[i].toString();
-			if(!toStr.isEmpty()) {
-				if((i + 1) < (arr.length)) toStr += ",";
-				sb.append(toStr);
-			}
-		}
-		return sb.toString();
-
-	}
-
 }
