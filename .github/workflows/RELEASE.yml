@@ -30,10 +30,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
-      # Runs a set of commands using the runners shell
+      # Run commands using shell runner
       - name: Maven verify build
         run: |
-          bash mvnw -V --fail-fast --no-transfer-progress --batch-mode clean package -DskipTests
+          mvn -V --fail-fast --no-transfer-progress --batch-mode clean package -DskipTests
       # Get POM version
       - name: Extract Maven project version
         run: echo ::set-output name=version::$(bash mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
@@ -43,18 +43,26 @@ jobs:
         run: echo ::set-output name=artifactId::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.artifactId}' --non-recursive exec:exec)
         id: artifact
       #
-      # Run Docker stuff
-      #
-      # Do stuff to build docker image          
+      # Docker build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+      #
+      # Push to DockerHub
       - name: Login to DockerHub
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      #
+      # Push to Github Secure Registry
+      - name: Login to DockerHub
+        uses: docker/login-action@v2 
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Dockerfile and Push
         id: docker_build
         uses: docker/build-push-action@v2
@@ -64,7 +72,10 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/${{ steps.artifact.outputs.artifactId }}:${{ steps.project.outputs.version }}
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ steps.project.outputs.version }}
           labels: |
             tech.bananaz.app.version=${{ steps.project.outputs.version }}
             tech.bananaz.core.version=${{ steps.btCore.outputs.version }}
             tech.bananaz.maintainer=contact@bananaz.tech
+            tech.bananaz.repo=https://github.com/${{ github.repository }}
