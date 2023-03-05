@@ -10,6 +10,7 @@ import java.util.Optional;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.channel.*;
+import org.javacord.api.entity.intent.Intent;
 import org.javacord.api.entity.message.*;
 import org.javacord.api.entity.permission.Permissions;
 import org.javacord.api.entity.permission.Role;
@@ -54,6 +55,7 @@ public class DiscordBot {
 			// Start Discord connection
 	        this.disc = new DiscordApiBuilder()
 	        					.setToken(config.getToken())
+	        					.addIntents(Intent.MESSAGE_CONTENT)
 	        					.login()
 	        					.join();
 	       
