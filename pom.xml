@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>tech.bananaz</groupId>
 	<artifactId>java-survival-games</artifactId>
-	<version>0.1.4</version>
+	<version>0.1.5</version>
 	<name> java-survival-games </name>
 	<description>A Discord bot made with javacord, processing lots of data!</description>
 	<properties>
