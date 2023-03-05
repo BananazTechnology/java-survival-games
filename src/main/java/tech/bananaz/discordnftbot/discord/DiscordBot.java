@@ -321,7 +321,7 @@ public class DiscordBot {
 	
 	private void startupLogger() throws JsonProcessingException {
         LOGGER.info("--------");
-		LOGGER.debug("Discord bot config: "+ new ObjectMapper().writeValueAsString(disc.getApplicationInfo().join()));
+		LOGGER.debug("Discord bot config: "+ new ObjectMapper().writeValueAsString(disc.getCachedApplicationInfo()));
         LOGGER.debug("Discord connection started!");
         LOGGER.info("Need this bot in your server? " + disc.createBotInvite(Permissions.fromBitmask(0x0000000008)));
         LOGGER.info("--------");

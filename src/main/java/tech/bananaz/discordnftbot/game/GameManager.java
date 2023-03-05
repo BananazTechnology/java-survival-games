@@ -123,8 +123,7 @@ public class GameManager {
 	
 	public void autoWin(EventMessage e) {
 		// Roll for natural ID increment REQUIRED
-		@SuppressWarnings("unused")
-		boolean result = this.sg.roll();
+		this.sg.manualWinner();
 		long id 	   = this.sg.getEntries();
 		long discordId = e.getUser().getId();
 		Optional<Entry> last = this.entryRepo.findFirstByDiscordIdOrderByCreatedDesc(discordId);

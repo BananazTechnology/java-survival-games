@@ -41,9 +41,14 @@ public class SurvivalGame {
 					result = true;
 					this.winners++;
 				}
-				entries++;
+				this.entries++;
 			}
 		}
 		return result;
+	}
+	
+	public void manualWinner() {
+		this.entries++;
+		this.winners++;
 	}
 }
