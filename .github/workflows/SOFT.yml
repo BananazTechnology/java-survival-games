@@ -8,4 +8,4 @@ on: [push, workflow_dispatch]
 jobs:
   build:
     # This workflow builds the Java app!
-    uses: BananazTechnology/.github/workflows/JAVA-SOFT.yaml@main
+    uses: BananazTechnology/bananaz-pipelines/.github/workflows/JAVA-SOFT.yaml@main
