@@ -9,3 +9,4 @@ jobs:
   build:
     # This workflow builds the Java app!
     uses: BananazTechnology/bananaz-pipelines/.github/workflows/JAVA-SOFT.yaml@main
+    secrets: inherit
