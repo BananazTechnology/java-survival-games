@@ -1,12 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: SOFT
+name: JAVA-PIPELINE
 
 # Controls when the workflow will run
 on: [push, workflow_dispatch]
     
 jobs:
-  build:
-    # This workflow builds the Java app!
-    uses: BananazTechnology/bananaz-pipelines/.github/workflows/JAVA-SOFT.yaml@main
+  java-pipeline:
+    # This is the main Java pipeline
+    uses: BananazTechnology/bananaz-pipelines/.github/workflows/JAVA.yaml@main
     secrets: inherit
