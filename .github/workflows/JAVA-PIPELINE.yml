@@ -1,12 +1,13 @@
-# This is a basic workflow to help you get started with Actions
-
 name: JAVA-PIPELINE
-
+# Set the UI name
+run-name: Java build pipeline
 # Controls when the workflow will run
 on: [push, workflow_dispatch]
     
 jobs:
   java-pipeline:
+    # Set github UI name
+    name: Call the Java pipeline
     # This is the main Java pipeline
     uses: BananazTechnology/bananaz-pipelines/.github/workflows/JAVA.yaml@main
     secrets: inherit
