@@ -1,6 +1,4 @@
 name: JAVA-PIPELINE
-# Set the UI name
-run-name: Java build pipeline
 # Controls when the workflow will run
 on: [push, workflow_dispatch]
     
